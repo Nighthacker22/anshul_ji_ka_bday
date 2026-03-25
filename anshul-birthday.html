@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday, Anshul Boss 🎂</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Pacifico&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #e63946;
+    --gold: #f4c430;
+    --dark: #0d0d0d;
+    --card: #1a1a1a;
+    --text: #f0f0f0;
+    --muted: #999;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'Nunito', sans-serif;
+    overflow-x: hidden;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ctext y='24' font-size='24'%3E🎂%3C/text%3E%3C/svg%3E"), auto;
+  }
+
+  /* Confetti canvas */
+  #confetti-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 999;
+  }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+    background: radial-gradient(ellipse at 50% 0%, #2a0a0a 0%, #0d0d0d 70%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -100px; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(230,57,70,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: pulse 3s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.6; }
+    50% { transform: translateX(-50%) scale(1.15); opacity: 1; }
+  }
+
+  .boss-tag {
+    background: var(--red);
+    color: white;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 13px;
+    letter-spacing: 4px;
+    padding: 6px 20px;
+    border-radius: 2px;
+    margin-bottom: 20px;
+    animation: fadeDown 0.6s ease forwards;
+    opacity: 0;
+    animation-delay: 0.2s;
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', cursive;
+    font-size: clamp(60px, 12vw, 120px);
+    line-height: 1;
+    color: var(--gold);
+    text-shadow: 0 0 40px rgba(244,196,48,0.4);
+    animation: fadeDown 0.7s ease forwards;
+    opacity: 0;
+    animation-delay: 0.4s;
+  }
+
+  .hero-sub {
+    font-size: clamp(16px, 3vw, 22px);
+    color: var(--muted);
+    margin-top: 12px;
+    animation: fadeDown 0.7s ease forwards;
+    opacity: 0;
+    animation-delay: 0.6s;
+  }
+
+  .hero-sub span { color: var(--red); font-weight: 900; }
+
+  /* Photo frame */
+  .photo-frame {
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    border: 4px solid var(--gold);
+    margin: 30px auto;
+    background: #222;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(244,196,48,0.3);
+    animation: fadeUp 0.8s ease forwards;
+    opacity: 0;
+    animation-delay: 0.8s;
+    transition: box-shadow 0.3s;
+  }
+
+  .photo-frame:hover { box-shadow: 0 0 50px rgba(244,196,48,0.6); }
+  .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* Most Feared Badge */
+  .feared-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #7a0000, #e63946);
+    border: 2px solid #ff6b6b;
+    border-radius: 50px;
+    padding: 10px 24px;
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    margin: 10px auto;
+    animation: shake 0.5s ease-in-out infinite alternate;
+    box-shadow: 0 0 20px rgba(230, 57, 70, 0.5);
+  }
+
+  @keyframes shake {
+    0% { transform: rotate(-1deg); }
+    100% { transform: rotate(1deg); }
+  }
+
+  /* Sections */
+  .section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 60px 20px;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', cursive;
+    font-size: clamp(36px, 6vw, 60px);
+    color: var(--gold);
+    text-align: center;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+  }
+
+  .section-sub {
+    text-align: center;
+    color: var(--muted);
+    margin-bottom: 40px;
+    font-size: 15px;
+  }
+
+  /* ANGER METER */
+  .anger-section {
+    background: linear-gradient(135deg, #1a0505, #1a1a1a);
+    border-radius: 20px;
+    padding: 40px;
+    margin: 0 20px 40px;
+    border: 1px solid #3a0000;
+    max-width: 900px;
+    margin: 0 auto 40px;
+  }
+
+  .meter-container {
+    position: relative;
+    background: #111;
+    border-radius: 12px;
+    padding: 30px;
+    border: 1px solid #333;
+  }
+
+  .meter-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .meter-bar-wrap {
+    height: 28px;
+    background: #222;
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #333;
+  }
+
+  .meter-bar {
+    height: 100%;
+    border-radius: 14px;
+    transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+    background: linear-gradient(90deg, #f4c430, #ff9900, #e63946);
+    position: relative;
+  }
+
+  .meter-bar::after {
+    content: '';
+    position: absolute;
+    top: 4px; left: 8px; right: 8px; height: 6px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 3px;
+  }
+
+  .mood-display {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 40px;
+    transition: all 0.5s;
+  }
+
+  .mood-text {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 28px;
+    color: var(--red);
+    display: block;
+    margin-top: 6px;
+    letter-spacing: 2px;
+  }
+
+  .mood-desc {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .meter-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 24px;
+  }
+
+  .meter-btn {
+    background: #222;
+    border: 1px solid #444;
+    color: var(--text);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .meter-btn:hover { background: var(--red); border-color: var(--red); transform: scale(1.05); }
+
+  /* AWARDS */
+  .awards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+
+  .award-card {
+    background: var(--card);
+    border: 1px solid #333;
+    border-radius: 16px;
+    padding: 28px 20px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .award-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--red), var(--gold));
+  }
+
+  .award-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+
+  .award-icon { font-size: 44px; margin-bottom: 12px; }
+  .award-title {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 20px;
+    color: var(--gold);
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .award-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+  /* CERTIFICATE */
+  .certificate {
+    background: #0d0d0d;
+    border: 2px solid var(--gold);
+    border-radius: 16px;
+    padding: 40px;
+    text-align: center;
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: inset 0 0 60px rgba(244,196,48,0.05), 0 0 40px rgba(244,196,48,0.1);
+  }
+
+  .certificate::before, .certificate::after {
+    content: '✦';
+    position: absolute;
+    color: var(--gold);
+    font-size: 20px;
+    opacity: 0.4;
+  }
+  .certificate::before { top: 14px; left: 20px; }
+  .certificate::after { bottom: 14px; right: 20px; }
+
+  .cert-header {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 13px;
+    letter-spacing: 5px;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .cert-title {
+    font-family: 'Pacifico', cursive;
+    font-size: clamp(22px, 4vw, 34px);
+    color: var(--gold);
+    line-height: 1.3;
+    margin-bottom: 16px;
+  }
+
+  .cert-name {
+    font-family: 'Bebas Neue', cursive;
+    font-size: clamp(36px, 6vw, 60px);
+    color: white;
+    letter-spacing: 3px;
+  }
+
+  .cert-body {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.8;
+    margin: 16px 0;
+  }
+
+  .cert-seal {
+    font-size: 50px;
+    margin: 16px 0;
+  }
+
+  .cert-footer {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .cert-sign {
+    text-align: center;
+    border-top: 1px solid #444;
+    padding-top: 10px;
+    min-width: 130px;
+  }
+
+  .cert-sign-name { font-size: 11px; color: var(--muted); letter-spacing: 1px; }
+
+  /* BRANDS */
+  .brands-section { background: var(--card); border-radius: 20px; padding: 40px; margin-bottom: 40px; border: 1px solid #2a2a2a; }
+
+  .brands-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+    margin-top: 30px;
+  }
+
+  .brand-tile {
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .brand-tile:hover { border-color: var(--gold); transform: scale(1.04); }
+  .brand-tile input[type="file"] { display: none; }
+  .brand-tile img { width: 100%; height: 80px; object-fit: contain; display: none; border-radius: 6px; }
+  .brand-tile-icon { font-size: 30px; margin-bottom: 8px; }
+  .brand-tile-name { font-family: 'Bebas Neue', cursive; font-size: 18px; letter-spacing: 2px; color: var(--gold); }
+  .brand-tile-tag { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+  /* TIMELINE */
+  .timeline { position: relative; padding-left: 30px; }
+  .timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--gold), var(--red)); }
+
+  .tl-item { position: relative; margin-bottom: 30px; }
+  .tl-dot { position: absolute; left: -26px; top: 4px; width: 14px; height: 14px; border-radius: 50%; background: var(--gold); border: 2px solid var(--dark); }
+  .tl-title { font-weight: 900; color: var(--gold); margin-bottom: 4px; }
+  .tl-desc { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 60px 20px;
+    border-top: 1px solid #222;
+  }
+
+  .footer-wish {
+    font-family: 'Pacifico', cursive;
+    font-size: clamp(28px, 5vw, 50px);
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+
+  .footer-team {
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  .footer-team span { color: var(--red); }
+
+  .balloons {
+    font-size: 30px;
+    letter-spacing: 8px;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  /* Animations */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Scroll reveal */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .revealed { opacity: 1; transform: translateY(0); }
+
+  /* divider */
+  .divider {
+    text-align: center;
+    color: var(--muted);
+    font-size: 20px;
+    letter-spacing: 12px;
+    margin: 20px 0 40px;
+    opacity: 0.3;
+  }
+
+  /* Tooltip */
+  [data-tip] { position: relative; cursor: help; }
+  [data-tip]:hover::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 10;
+  }
+
+  @media (max-width: 600px) {
+    .anger-section, .brands-section { padding: 24px 16px; }
+    .certificate { padding: 24px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="confetti-canvas"></canvas>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="boss-tag">⚠️ CLASSIFIED BIRTHDAY FILE ⚠️</div>
+  <h1 class="hero-title">Happy Birthday<br>Jagat Chachu</h1>
+  <p class="hero-sub">Office ka <span>sabse dara hua</span> aur sabse pyara din 🎂</p>
+
+  <!-- BOSS PHOTO: Yahan src mein apna image URL daalo -->
+  <div class="photo-frame">
+    <img src="./589104788_18535885711001847_9202967238050784530_n.jpg" alt="Anshul Sir">
+  </div>
+
+  <div class="feared-badge">😤 MOST FEARED IN THE OFFICE 😤</div>
+
+  <p style="margin-top:16px; color: #666; font-size:13px;">
+    ⬇️ Scroll karo, aur aur bhi hai...
+  </p>
+</section>
+
+<!-- ANGER METER -->
+<div style="padding: 0 20px; max-width:900px; margin: 60px auto 0;">
+  <div class="section-title reveal">😡 Anshul's Real-Time Anger Meter</div>
+  <p class="section-sub reveal" style="margin-bottom:20px;">Aaj unka birthday hai... toh meter thoda down hai. <em>Thoda.</em></p>
+
+  <div class="anger-section reveal">
+    <div class="meter-container">
+      <div class="meter-label">
+        <span>😇 Shant</span>
+        <span>😤 Negotiation Mode</span>
+        <span>🔥 FULL ANSHUL</span>
+      </div>
+      <div class="meter-bar-wrap">
+        <div class="meter-bar" id="anger-bar" style="width: 0%"></div>
+      </div>
+      <div class="mood-display" id="mood-emoji">😇</div>
+      <div class="mood-text" id="mood-text">BIRTHDAY WALI KHUSHI</div>
+      <div class="mood-desc" id="mood-desc">Aaj safe ho. Party karo!</div>
+
+      <div class="meter-buttons">
+        <button class="meter-btn" onclick="setMood(10, '😇', 'BIRTHDAY MODE', 'Cake kha lo, koi risk nahi')">🎂 Birthday Cake mila</button>
+        <button class="meter-btn" onclick="setMood(30, '🙂', 'CHILL HAI', 'Neend achi aayi hogi')">☕ Good Morning hua</button>
+        <button class="meter-btn" onclick="setMood(55, '😠', 'NEGOTIATION STANCE', 'Counter offer aaya hai')">💼 Deal pe baat</button>
+        <button class="meter-btn" onclick="setMood(75, '😤', 'BOSS LEVEL ACTIVATED', 'Koi deadline miss ki?')">⏰ Deadline miss</button>
+        <button class="meter-btn" onclick="setMood(95, '🔥', 'FULL POWER MODE', 'Vendor ne call nahi uthaya')">📵 Vendor ne ignore kiya</button>
+        <button class="meter-btn" onclick="setMood(100, '💀', 'PLEASE HIDE', 'Office mein sannata chhaa gaya')">💀 D2C numbers down</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AWARDS -->
+<div class="section">
+  <div class="section-title reveal">🏆 Annual Anshul Awards</div>
+  <p class="section-sub reveal">Ye awards sirf ek hi banda jeet sakta hai</p>
+
+  <div class="awards-grid">
+    <div class="award-card reveal">
+      <div class="award-icon">😤</div>
+      <div class="award-title">Most Feared Boss Award</div>
+      <div class="award-desc">Office mein "Anshul sir aa rahe hain" sunke log apne aap productive ho jaate hain. Ye talent hai, bhai.</div>
+    </div>
+    <div class="award-card reveal">
+      <div class="award-icon">🤝</div>
+      <div class="award-title">Negotiation Ninja</div>
+      <div class="award-desc">Vendor ne ₹1000 maanga, Anshul sir ne ₹200 mein deal ki aur vendor ne thank you bhi bola. Magic hai yaar.</div>
+    </div>
+    <div class="award-card reveal">
+      <div class="award-icon">📱</div>
+      <div class="award-title">D2C Ka Deewaana</div>
+      <div class="award-desc">Har conversation mein Jaisal — Office Parties mein bhi ye discuss karte hai .</div>
+    </div>
+    <div class="award-card reveal">
+      <div class="award-icon">👑</div>
+      <div class="award-title">Multi-Brand Empire Builder</div>
+      <div class="award-desc">4-5 brands simultaneously! Jab baaki log ek cheez manage nahi kar paate, yaar 5 brands run kar raha hai. Respect.</div>
+    </div>
+    <div class="award-card reveal">
+      <div class="award-icon">⚡</div>
+      <div class="award-title">Zero to Deal Speedrun</div>
+      <div class="award-desc">Office ka sabse fast decision maker. Ek meeting mein teri team sochti hai, Anshul sir woh baat decide kar chuke hote hain.</div>
+    </div>
+    <div class="award-card reveal">
+      <div class="award-icon">🎯</div>
+      <div class="award-title">Feedback That Hits Different</div>
+      <div class="award-desc">"Anshul sir se review karao" — office ka sabse darne wala aur sabse useful suggestion. Growth hoti hai, bhai.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CERTIFICATE -->
+<div class="section">
+  <div class="section-title reveal">📜 Official Certificate</div>
+  <p class="section-sub reveal">Ekdum government-level certified</p>
+
+  <div class="certificate reveal">
+    <div class="cert-header">REPUBLIC OF OFFICE FLOOR · ESTABLISHED FOREVER</div>
+    <div class="cert-title">Certificate of Legendary<br>Negotiation & Controlled Terror</div>
+    <div class="cert-name">ANSHUL</div>
+    <div class="cert-body">
+      Yeh certify kiya jaata hai ki uprokt mahashaY ne apne karyakal mein<br>
+      <strong style="color: var(--gold)">vendors ko negotiate karke behoosh kiya hai</strong>,<br>
+      <strong style="color: var(--red)">D2C brands ki duniya mein apna naam rosha kiya hai</strong>,<br>
+      aur <strong style="color: white">office ke sabhi logon ke dil mein samaan-vardhit bhay aur adar ka sanchaar kiya hai</strong>.
+    </div>
+    <div class="cert-seal">🎖️</div>
+    <div style="font-size:12px; color: var(--muted); margin-bottom: 20px;">
+      Birthday pe issue kiya gaya · Valid for entire next year
+    </div>
+    <div class="cert-footer">
+      <div class="cert-sign">
+        <div style="font-family: Pacifico, cursive; font-size: 18px; color: var(--gold);">Team</div>
+        <div class="cert-sign-name">TEAM SIGNATURE</div>
+      </div>
+      <div class="cert-seal" style="font-size: 36px; margin: 0;">🔏</div>
+      <div class="cert-sign">
+        <div style="font-family: Pacifico, cursive; font-size: 18px; color: var(--gold);">Anshul</div>
+        <div class="cert-sign-name">BOSS SIGNATURE</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BRANDS SECTION -->
+<div style="max-width:900px; margin: 0 auto 60px; padding: 0 20px;">
+  <div class="section-title reveal">🏪 Anshul ka D2C Samrajya</div>
+  <p class="section-sub reveal">Yeh sirf brands nahi, yeh obsession hai</p>
+  <div class="brands-section reveal">
+    <div class="brands-grid">
+
+      <!-- BRAND IMAGES: Har brand ke src mein apna URL daalo -->
+
+      <div class="brand-tile">
+        <img src="YOUR_JAISAL_IMAGE_URL_HERE" alt="Jaisal" style="width:100%;height:80px;object-fit:contain;border-radius:6px;">
+        <div class="brand-tile-name">Jaisal</div>
+        <div class="brand-tile-tag">Anshul ka pyaar 💕</div>
+      </div>
+
+      <div class="brand-tile">
+        <img src="YOUR_LITTLE_INDIA_IMAGE_URL_HERE" alt="Little India" style="width:100%;height:80px;object-fit:contain;border-radius:6px;">
+        <div class="brand-tile-name">Little India</div>
+        <div class="brand-tile-tag">Desh ka swad</div>
+      </div>
+
+      <div class="brand-tile">
+        <img src="YOUR_ANVINAH_IMAGE_URL_HERE" alt="Anvinah" style="width:100%;height:80px;object-fit:contain;border-radius:6px;">
+        <div class="brand-tile-name">Anvinah</div>
+        <div class="brand-tile-tag">Naya wala project</div>
+      </div>
+
+      <div class="brand-tile">
+        <img src="YOUR_AMMENAH_IMAGE_URL_HERE" alt="Ammenah" style="width:100%;height:80px;object-fit:contain;border-radius:6px;">
+        <div class="brand-tile-name">Ammenah</div>
+        <div class="brand-tile-tag">Growth mode on</div>
+      </div>
+
+      <div class="brand-tile">
+        <img src="YOUR_NEXT_BRAND_IMAGE_URL_HERE" alt="Next Brand" style="width:100%;height:80px;object-fit:contain;border-radius:6px;">
+        <div class="brand-tile-name">Next Brand?</div>
+        <div class="brand-tile-tag">Anshul soch raha hai...</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- NEGOTIATION SKILL CERTIFICATE -->
+<div class="section">
+  <div class="section-title reveal">💼 Negotiation Skill Tree</div>
+  <p class="section-sub reveal">Levels jo sirf Anshul sir ne unlock kiye hain</p>
+  <div class="timeline reveal">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-title">Level 1 — Basic Human 😇</div>
+      <div class="tl-desc">Normal log yahan tak pahunchte hain. "Thoda discount milega kya?"</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-title">Level 3 — Price Breaker 💬</div>
+      <div class="tl-desc">Counter-offer aata hai, vendor thoda khisak jaata hai.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-title">Level 5 — The Silent Stare 👀</div>
+      <div class="tl-desc">Bolte kuch nahi, ghoorte rehte hain. Vendor khud rate kam kar deta hai.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-title">Level 8 — Walk Away Technique 🚶</div>
+      <div class="tl-desc">Uthke jaane lagte hain... vendor bhagke wapas bulata hai aur half price deta hai.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-title">⭐ ANSHUL LEVEL — Deal Destruction 💀</div>
+      <div class="tl-desc">Vendor pehle hi best rate deta hai kyunki "Anshul sir se panga nahi lena." Meeting se pehle hi deal ho jaati hai.</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider">· · ✦ · ·</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="balloons">🎈🎂🎉🎊🎁</div>
+  <div class="footer-wish" style="margin-top:20px;">Janamdin Mubarak, Boss!</div>
+  <p class="footer-team">
+    Pyaar se banaya gaya <span>♥</span> by your team<br>
+    Jo aapse darte hain... <em>aur bahut respect bhi karte hain</em> 😅
+  </p>
+  <p style="margin-top: 30px; font-size: 12px; color: #444;">Made with fear, love & a little bit of courage 🙏</p>
+</footer>
+
+<script>
+// Anger Meter
+function setMood(level, emoji, text, desc) {
+  document.getElementById('anger-bar').style.width = level + '%';
+  document.getElementById('mood-emoji').textContent = emoji;
+  document.getElementById('mood-text').textContent = text;
+  document.getElementById('mood-desc').textContent = desc;
+
+  const bar = document.getElementById('anger-bar');
+  if (level < 30) bar.style.background = 'linear-gradient(90deg, #4caf50, #f4c430)';
+  else if (level < 60) bar.style.background = 'linear-gradient(90deg, #f4c430, #ff9900)';
+  else bar.style.background = 'linear-gradient(90deg, #ff9900, #e63946, #7a0000)';
+}
+
+// Initialize meter
+window.addEventListener('load', () => setTimeout(() => setMood(15, '😇', 'BIRTHDAY WALI KHUSHI', 'Aaj safe ho. Party karo!'), 600));
+
+// Scroll reveal
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('revealed'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Confetti
+(function() {
+  const canvas = document.getElementById('confetti-canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+
+  const colors = ['#f4c430', '#e63946', '#ffffff', '#ff9900', '#ffd700'];
+  const pieces = Array.from({length: 80}, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height - canvas.height,
+    w: Math.random() * 10 + 5,
+    h: Math.random() * 6 + 3,
+    color: colors[Math.floor(Math.random() * colors.length)],
+    speed: Math.random() * 2 + 1,
+    angle: Math.random() * Math.PI * 2,
+    spin: (Math.random() - 0.5) * 0.1,
+    drift: (Math.random() - 0.5) * 1.5
+  }));
+
+  let active = true;
+  setTimeout(() => active = false, 8000);
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (!active && pieces.every(p => p.y > canvas.height)) return;
+    pieces.forEach(p => {
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.angle);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
+      ctx.restore();
+      p.y += p.speed;
+      p.x += p.drift;
+      p.angle += p.spin;
+      if (p.y > canvas.height) { p.y = -10; p.x = Math.random() * canvas.width; }
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+</body>
+</html>
